@@ -30,11 +30,10 @@ if prompt:
         st.markdown(prompt)
     with st.spinner("Ada is typing..."):
         reply, chunks = answer(st.session_state.history, prompt, client)
+    reply = reply or "Sorry, something went wrong. Please try again."
     st.session_state.history += [
         {"role": "user", "content": prompt},
         {"role": "assistant", "content": reply},
     ]
     with st.chat_message("assistant"):
         st.markdown(reply)
-    with st.expander("Retrieved context"):
-        st.write(chunks)
